@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Participant Profile - HackEase</title>
+  <link rel="stylesheet" href="../login.css" />
+  <style>
+    .editable {
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .editable[contenteditable="true"] {
+      outline: 2px dashed #667eea;
+      background-color: #f0f4ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="left-panel">
+      <div class="logo-section">
+        <h1>Participant</h1>
+        <p>HackEase Profile</p>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="form-container active">
+        <div class="form-header">
+          <h2>Your Profile</h2>
+        </div>
+
+        <div class="form-group"><strong>Name:</strong> <span id="name" class="editable"></span></div>
+        <div class="form-group"><strong>Email:</strong> <span id="email" class="editable"></span></div>
+        <div class="form-group"><strong>College:</strong> <span id="college" class="editable"></span></div>
+        <div class="form-group"><strong>Phone:</strong> <span id="phone" class="editable"></span></div>
+        <div class="form-group"><strong>Gender:</strong> <span id="gender" class="editable"></span></div>
+        <div class="form-group"><strong>Skills:</strong> <span id="skills" class="editable"></span></div>
+
+        <button class="btn btn-primary" onclick="enableEdit()">Edit Profile</button>
+        <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+        <button class="btn btn-primary" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    async function fetchProfile() {
+      if (!token) {
+        alert("You are not logged in!");
+        return window.location.href = "../login1.html";
+      }
+
+      try {
+        const res = await fetch("http://localhost:5000/api/user/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById("name").textContent = data.firstName + " " + (data.lastName || "");
+          document.getElementById("email").textContent = data.email;
+          document.getElementById("college").textContent = data.college;
+          document.getElementById("phone").textContent = data.phone;
+          document.getElementById("gender").textContent = data.gender;
+          document.getElementById("skills").textContent = data.skills || "N/A";
+        } else {
+          alert(data.message || "Profile fetch failed");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Server not reachable");
+      }
+    }
+
+    function enableEdit() {
+      document.querySelectorAll(".editable").forEach(el => {
+        el.setAttribute("contenteditable", "true");
+      });
+      alert("Fields are now editable. Click Save to apply changes.");
+    }
+
+    async function saveProfile() {
+      const name = document.getElementById("name").textContent.trim();
+      const email = document.getElementById("email").textContent.trim();
+      const college = document.getElementById("college").textContent.trim();
+      const phone = document.getElementById("phone").textContent.trim();
+      const gender = document.getElementById("gender").textContent.trim();
+      const skills = document.getElementById("skills").textContent.trim();
+
+      const [firstName, ...lastNameParts] = name.split(" ");
+      const lastName = lastNameParts.join(" ");
+
+      const payload = {
+        firstName,
+        lastName,
+        email,
+        college,
+        phone,
+        gender,
+        skills
+      };
+
+      try {
+        const res = await fetch("http://localhost:5000/api/user/profile", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert("✅ Profile updated successfully!");
+          document.querySelectorAll(".editable").forEach(el => {
+            el.setAttribute("contenteditable", "false");
+          });
+        } else {
+          alert(data.message || "Update failed");
+        }
+      } catch (err) {
+        console.error("Update error:", err);
+        alert("Server error");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "../login1.html";
+    }
+
+    fetchProfile();
+  </script>
+</body>
+</html>

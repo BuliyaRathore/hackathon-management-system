@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hackease - Authentication</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+
+  <body>
+    <div class="main-container">
+      <div class="left-panel">
+        <button class="back-btn" id="backBtn" style="display: none">
+          ← Back
+        </button>
+
+        <div class="logo-section">
+          <h1>HackFest</h1>
+          <p>2025</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💻</div>
+          <h3>Hackathons</h3>
+          <p>
+            Join exciting coding competitions and build innovative solutions
+          </p>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <!-- Sign In Form -->
+        <div class="form-container active" id="signInForm">
+          <div class="form-header">
+            <h2>Log in</h2>
+            <p>Welcome back to Hackease</p>
+          </div>
+
+          <form id="signInFormElement">
+            <div class="form-group">
+              <label for="signInEmail">Email Address</label>
+              <input
+                type="email"
+                id="signInEmail"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="signInPassword">Password</label>
+              <input
+                type="password"
+                id="signInPassword"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+
+            <div class="divider">
+              <span>Or login with</span>
+            </div>
+
+            <button type="button" class="btn btn-linkedin">
+              <span>📘</span> Login with LinkedIn
+            </button>
+               <div class="link-text">
+            Don't have an account?
+            <a href="#" class="link-btn" id="showSignUpOptions">Sign up</a>
+          </div>
+          </form>
+
+          <div class="error-message" id="signInError"></div>
+          <div class="success-message" id="signInSuccess"></div>
+        </div>
+
+        <!-- Sign Up Options -->
+        <div class="form-container" id="signUpOptions">
+          <div class="form-header">
+            <h2>Create a new account</h2>
+            <p>Join HackEase and find your next opportunity</p>
+          </div>
+
+          <div class="role-selection">
+            <div class="role-card" id="candidateRole">
+              <div class="role-icon">👨‍💻</div>
+              <h3>Sign up as a Candidate</h3>
+              <p>Compete, learn, and apply for jobs and internships</p>
+            </div>
+
+            <div class="role-card" id="organizerRole">
+              <div class="role-icon">🎯</div>
+              <h3>Sign up as a Organizer</h3>
+              <p>
+                Host competitions, hire talent, and offer career opportunities
+              </p>
+            </div>
+          </div>
+
+          <div class="link-text">
+            Already have an account?
+            <a href="#" class="link-btn" id="showSignIn">Login</a>
+          </div>
+        </div>
+
+        <!-- Candidate Sign Up Form -->
+        <div class="form-container" id="candidateSignUp">
+          <div class="form-header">
+            <h2>Sign up as candidate</h2>
+          </div>
+
+          <form id="candidateSignUpForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidateFirstName">First Name *</label>
+                <input
+                  type="text"
+                  id="candidateFirstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="candidateLastName">Last Name</label>
+                <input
+                  type="text"
+                  id="candidateLastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="candidateEmail">Email *</label>
+              <input
+                type="email"
+                id="candidateEmail"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="college">College *</label>
+              <input
+                type="text"
+                id="college"
+                name="college"
+                class="input"
+                placeholder="College"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="candidatePhone">Phone *</label>
+              <div class="phone-input">
+                <select class="country-code">
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                </select>
+                <input
+                  type="tel"
+                  id="candidatePhone"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Gender *</label>
+              <div class="gender-options">
+                <div class="gender-option" data-value="male">👨 Male</div>
+                <div class="gender-option" data-value="female">👩 Female</div>
+                <div class="gender-option" data-value="other">
+                  🏳️ More Options
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="candidatePassword">Password *</label>
+                <input
+                  type="password"
+                  id="candidatePassword"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="candidateConfirmPassword">Confirm Password *</label>
+                <input
+                  type="password"
+                  id="candidateConfirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="candidateSkills">Skills</label>
+              <input
+                type="text"
+                id="candidateSkills"
+                name="skills"
+                placeholder="e.g., JavaScript, Python, React"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Next</button>
+          </form>
+
+          <div class="link-text">
+            Already have an account?
+            <a href="#" class="link-btn" id="candidateToSignIn">Login</a>
+          </div>
+
+          <div class="error-message" id="candidateError"></div>
+          <div class="success-message" id="candidateSuccess"></div>
+        </div>
+
+        <!-- Organizer Sign Up Form -->
+        <div class="form-container" id="organizerSignUp">
+          <div class="form-header">
+            <h2>Sign up as recruiter</h2>
+          </div>
+
+          <form id="organizerSignUpForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="organizerFirstName">First Name *</label>
+                <input
+                  type="text"
+                  id="organizerFirstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="organizerLastName">Last Name</label>
+                <input
+                  type="text"
+                  id="organizerLastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="organizerEmail">Organisation Email *</label>
+              <input
+                type="email"
+                id="organizerEmail"
+                name="email"
+                placeholder="Official Email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="organizerPhone">Phone *</label>
+              <div class="phone-input">
+                <select class="country-code">
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                </select>
+                <input
+                  type="tel"
+                  id="organizerPhone"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Gender *</label>
+              <div class="gender-options">
+                <div class="gender-option" data-value="male">👨 Male</div>
+                <div class="gender-option" data-value="female">👩 Female</div>
+                <div class="gender-option" data-value="other">
+                  🏳️ More Options
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="organizerPassword">Password *</label>
+                <input
+                  type="password"
+                  id="organizerPassword"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="organizerConfirmPassword">Confirm Password *</label>
+                <input
+                  type="password"
+                  id="organizerConfirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="organizerCompany">Company/Organization</label>
+              <input
+                type="text"
+                id="organizerCompany"
+                name="company"
+                placeholder="Company Name"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Next</button>
+          </form>
+
+          <div class="link-text">
+            Already have an account?
+            <a href="#" class="link-btn" id="organizerToSignIn">Login</a>
+          </div>
+
+          <div class="error-message" id="organizerError"></div>
+          <div class="success-message" id="organizerSuccess"></div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // In-memory storage
+      let users = [];
+      let currentUser = null;
+      let selectedGender = "";
+
+      // DOM elements
+      const forms = {
+        signIn: document.getElementById("signInForm"),
+        signUpOptions: document.getElementById("signUpOptions"),
+        candidateSignUp: document.getElementById("candidateSignUp"),
+        organizerSignUp: document.getElementById("organizerSignUp"),
+      };
+
+      const backBtn = document.getElementById("backBtn");
+
+      // Navigation functions
+      function showForm(formName) {
+        Object.values(forms).forEach((form) => form.classList.remove("active"));
+        forms[formName].classList.add("active");
+      }
+
+      function showPreviousForm() {
+        const currentForm = Object.keys(forms).find((key) =>
+          forms[key].classList.contains("active")
+        );
+
+        switch (currentForm) {
+          case "signUpOptions":
+            showForm("signIn");
+            break;
+          case "candidateSignUp":
+          case "organizerSignUp":
+            showForm("signUpOptions");
+            break;
+          default:
+            showForm("signIn");
+        }
+      }
+
+      // Event listeners for navigation
+      document
+        .getElementById("showSignUpOptions")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          showForm("signUpOptions");
+        });
+
+      document.getElementById("showSignIn").addEventListener("click", (e) => {
+        e.preventDefault();
+        showForm("signIn");
+      });
+
+      document
+        .getElementById("candidateToSignIn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          showForm("signIn");
+        });
+
+      document
+        .getElementById("organizerToSignIn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          showForm("signIn");
+        });
+
+      backBtn.addEventListener("click", showPreviousForm);
+
+      // Role selection
+      document
+        .getElementById("candidateRole")
+        .addEventListener("click", function () {
+          this.classList.add("selected");
+          document.getElementById("organizerRole").classList.remove("selected");
+          setTimeout(() => showForm("candidateSignUp"), 500);
+        });
+
+      document
+        .getElementById("organizerRole")
+        .addEventListener("click", function () {
+          this.classList.add("selected");
+          document.getElementById("candidateRole").classList.remove("selected");
+          setTimeout(() => showForm("organizerSignUp"), 500);
+        });
+
+      // Gender selection
+      document.querySelectorAll(".gender-option").forEach((option) => {
+        option.addEventListener("click", function () {
+          document
+            .querySelectorAll(".gender-option")
+            .forEach((opt) => opt.classList.remove("selected"));
+          this.classList.add("selected");
+          selectedGender = this.dataset.value;
+        });
+      });
+
+      // Form submissions
+ document
+  .getElementById("signInFormElement")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("signInEmail").value;
+    const password = document.getElementById("signInPassword").value;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      console.log("🔐 Login API Response:", data);
+
+      if (res.ok && data.token) {
+        localStorage.setItem("token", data.token); // ✅ Token stored
+         
+        showMessage("signInSuccess", `Welcome back, ${data.user.firstName}!`);
+        console.log("✅ Logged in:", data.user);
+
+        setTimeout(() => {
+          if (data.user.role === "candidate") {
+            window.location.href = "participant panel/participant.html";
+          } else if (data.user.role === "organizer") {
+            window.location.href = "Archive/organizer.html";
+          }
+        }, 1000);
+      } else {
+        showMessage("signInError", data.message || "Login failed");
+      }
+    } catch (err) {
+      showMessage("signInError", "Server not reachable");
+      console.error(err);
+    }
+  });
+
+
+document
+  .getElementById("candidateSignUpForm")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (password !== confirmPassword) {
+      showMessage("candidateError", "Passwords do not match");
+      return;
+    }
+
+    if (!selectedGender) {
+      showMessage("candidateError", "Please select your gender");
+      return;
+    }
+
+    const userData = {
+      role: "candidate",
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      college: formData.get("college"),
+      password: password,
+      phone: formData.get("phone"),
+      gender: selectedGender,
+      skills: formData.get("skills"),
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await res.json();
+      console.log("📝 Candidate Register Response:", data);
+
+      if (res.ok) {
+        showMessage("candidateSuccess", "Account created successfully!");
+        setTimeout(() => showForm("signIn"), 2000);
+      } else {
+        showMessage("candidateError", data.message || "Registration failed");
+      }
+    } catch (err) {
+      showMessage("candidateError", "Server not reachable");
+      console.error(err);
+    }
+  });
+
+
+
+    document
+  .getElementById("organizerSignUpForm")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (password !== confirmPassword) {
+      showMessage("organizerError", "Passwords do not match");
+      return;
+    }
+
+    if (!selectedGender) {
+      showMessage("organizerError", "Please select your gender");
+      return;
+    }
+
+    const userData = {
+      role: "organizer",
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      password: password,
+      phone: formData.get("phone"),
+      gender: selectedGender,
+      company: formData.get("company"),
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await res.json();
+      console.log("📝 Organizer Register Response:", data);
+
+      if (res.ok) {
+        showMessage("organizerSuccess", "Account created successfully!");
+        setTimeout(() => showForm("signIn"), 2000);
+      } else {
+        showMessage("organizerError", data.message || "Registration failed");
+      }
+    } catch (err) {
+      showMessage("organizerError", "Server not reachable");
+      console.error(err);
+    }
+  });
+
+
+      // Utility function to show messages
+      function showMessage(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.style.display = "block";
+
+        // Hide other messages
+        document
+          .querySelectorAll(".error-message, .success-message")
+          .forEach((el) => {
+            if (el.id !== elementId) {
+              el.style.display = "none";
+            }
+          });
+
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 5000);
+      }
+
+      // Initialize
+      showForm("signIn");
+    </script>
+  </body>
+</html>

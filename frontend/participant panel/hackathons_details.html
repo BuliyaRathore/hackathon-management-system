@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hackwave 2.0 - Hackathon Details</title>
+     <link rel="stylesheet" href="hackathons_details.css" />
+  </head>
+
+  <body>
+    <div class="progress-indicator" id="progressBar"></div>
+
+      <div class="page-wrapper">
+          <!-- Top header and tab menu will go here -->
+  <div class="top-header" id="topHeader"></div>
+  <ul class="tab-menu" id="tabMenu"></ul>
+        <div class="main-content">
+          <!-- Left Section -->
+          <div class="left-content" id="detailsContainer"> </div>
+          <!-- Right Side Info Panel -->
+          <div class="right-info" id="rightPanel"></div>
+      </div>
+    </div>
+    <script src="hackathon-details.js"></script>
+    <script>
+
+      // Progress bar update
+      function updateProgressBar() {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        document.getElementById("progressBar").style.width =
+          scrollPercent + "%";
+      }
+
+      // Auto-update active tab based on scroll position
+      function updateActiveTab() {
+        const sections = [
+          "problem",
+          "stages",
+          "details",
+          "deadlines",
+          "prizes",
+        ];
+        const scrollPosition = window.scrollY + 200;
+
+        sections.forEach((sectionId) => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionTop + sectionHeight
+            ) {
+              document.querySelectorAll(".tab-menu li").forEach((tab) => {
+                tab.classList.remove("active");
+              });
+              document
+                .querySelector(`[data-section="${sectionId}"]`)
+                .classList.add("active");
+            }
+          }
+        });
+      }
+
+      // Enhanced registration function
+      function handleGoToRegister() {
+        const hackathonDetails = {
+          title: "Hackwave 2.0",
+          date: "Aug 23–25, 2025",
+          organizer: "Poojan Agarwal",
+          email: "agarwalpoojan07@gmail.com",
+          teamSize: "1-5",
+          mode: "Offline",
+          location: "Indore, Madhya Pradesh",
+          prizePool: "₹1,00,000",
+          problemStatement:
+            "Build a comprehensive platform for local businesses to digitize their operations and connect with customers.",
+          rounds: [
+            { name: "Idea Submission", start: "2025-07-25", end: "2025-07-31" },
+            {
+              name: "Offline Hackathon",
+              start: "2025-08-23",
+              end: "2025-08-25",
+            },
+            {
+              name: "Final Presentation",
+              start: "2025-08-25",
+              end: "2025-08-25",
+            },
+          ],
+          registrationDeadline: "2025-07-20",
+        };
+
+        // Show loading animation
+        const button = document.querySelector(".register-btn");
+        const originalText = button.textContent;
+        button.textContent = "Processing...";
+        button.style.background = "#6b7280";
+        button.disabled = true;
+
+        setTimeout(() => {
+          // For demo purposes - replace with actual registration logic
+          // alert(
+          //   "Registration successful! 🎉\n\nYou will receive a confirmation email shortly with further instructions."
+          // );
+
+          // Reset button
+          button.textContent = originalText;
+          button.style.background =
+            "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)";
+          button.disabled = false;
+
+          // Uncomment and modify for actual registration page
+          window.location.href = "register.html";
+        }, 2000);
+      }
+
+      // Event listeners
+      window.addEventListener("scroll", () => {
+        updateProgressBar();
+        updateActiveTab();
+      });
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set initial active tab
+        document
+          .querySelector('[data-section="problem"]')
+          .classList.add("active");
+
+        // Add staggered animation to cards
+        const cards = document.querySelectorAll(".section-card");
+        cards.forEach((card, index) => {
+          card.style.animationDelay = `${index * 0.1}s`;
+        });
+      });
+
+      // Smooth page load animation
+      window.addEventListener("load", function () {
+        document.body.style.opacity = "1";
+      });
+
+      const params = new URLSearchParams(window.location.search);
+const hackathonId = params.get("id");
+
+fetch(`http://localhost:5000/api/hackathon/${hackathonId}`)
+  .then((res) => res.json())
+  .then((hack) => {
+    document.querySelector(".hackathon-title").textContent = hack.title;
+    document.querySelector(".top-header p").innerHTML = `${hack.location}`;
+    // ✅ Calculate total prize
+    const totalPrize = Number(hack.prize1 || 0) + Number(hack.prize2 || 0) + Number(hack.prize3 || 0);
+    document.querySelector(".prize-tag").textContent = `🏆 Prizes Worth ₹${totalPrize}`;
+    document.querySelector("#problem .inner-card p").innerHTML = `<strong>Challenge:</strong> ${hack.problem}`;
+    document.querySelector("#details .inner-card p").innerHTML = `<strong>Overview:</strong> ${hack.description}`;
+    document.querySelector(".organizer-name").textContent = hack.organizerName;
+    document.querySelector(".organizer-email").textContent = hack.organizerEmail;
+  })
+  .catch((err) => {
+    console.error("Failed to load hackathon details:", err);
+  });
+
+    </script>
+  </body>
+</html>

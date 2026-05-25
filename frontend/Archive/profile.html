@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Organizer Profile - HackEase</title>
+  <link rel="stylesheet" href="../login.css" />
+</head>
+<body>
+  <div class="main-container">
+    <div class="left-panel">
+      <div class="logo-section">
+        <h1>Organizer</h1>
+        <p>HackEase Profile</p>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="form-container active">
+        <div class="form-header">
+          <h2>Your Profile</h2>
+          <p>Welcome, <span id="name">Organizer</span></p>
+        </div>
+
+        <div class="form-group"><strong>Email:</strong> <span id="email"></span></div>
+        <div class="form-group"><strong>Phone:</strong> <span id="phone"></span></div>
+        <div class="form-group"><strong>Gender:</strong> <span id="gender"></span></div>
+        <div class="form-group"><strong>Company:</strong> <span id="company"></span></div>
+
+        <button class="btn btn-primary" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    async function fetchProfile() {
+      if (!token) {
+        alert("You are not logged in!");
+        return window.location.href = "../login1.html";
+      }
+
+      try {
+        const res = await fetch("http://localhost:5000/api/user/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById("name").textContent = data.firstName + " " + (data.lastName || "");
+          document.getElementById("email").textContent = data.email;
+          document.getElementById("phone").textContent = data.phone;
+          document.getElementById("gender").textContent = data.gender;
+          document.getElementById("company").textContent = data.company || "N/A";
+        } else {
+          alert(data.message || "Profile fetch failed");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Server not reachable");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "../login1.html";
+    }
+
+    fetchProfile();
+  </script>
+</body>
+</html>

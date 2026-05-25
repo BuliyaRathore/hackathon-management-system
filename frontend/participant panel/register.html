@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Hackathon</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .register-container {
+            max-width: 750px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-container::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: rgba(37, 99, 235, 0.08);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .register-container::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(16, 185, 129, 0.07);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .register-container h2 {
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color: #1f2937;
+            z-index: 1;
+            position: relative;
+        }
+
+        .register-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .register-form input,
+        .register-form select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 5px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background-color: #f9fafb;
+            transition: 0.2s;
+            box-sizing: border-box;
+        }
+
+        .register-form input:focus,
+        .register-form select:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: #fff;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .team-member {
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
+        }
+
+        .register-form button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        .register-form button[type="button"] {
+            background-color: #10b981;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .register-form button[type="submit"] {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .register-form button:hover {
+            opacity: 0.9;
+        }
+
+        .register-form h3 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: #1f2937;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register-container">
+        <h2>Register for Hackathon</h2>
+        <form class="register-form" id="registrationForm">
+            <label>
+                Team Name*
+                <input type="text" name="teamName" id="teamName" required placeholder="Enter your team name" />
+            </label>
+            <label>
+                Leader Name*
+                <input type="text" name="leaderName" id="leaderName" required />
+            </label>
+            <label>
+                Leader Email*
+                <input type="email" name="leaderEmail" id="leaderEmail" required />
+            </label>
+            <label>
+                Mobile*
+                <input type="tel" name="mobile" id="mobile" required />
+            </label>
+            <label>
+                Gender*
+                <select name="gender" id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+            <label>
+                Institute Name*
+                <input type="text" name="institute" id="institute" required />
+            </label>
+
+            <h3>Team Members</h3>
+            <div id="teamMembersContainer">
+                <div class="team-member">
+                    <label>
+                        Name
+                        <input type="text" class="member-name" data-index="0" />
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" class="member-email" data-index="0" />
+                    </label>
+                    <label>
+                        Gender
+                        <select class="member-gender" data-index="0">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" id="addMemberBtn">
+                + Add Team Member
+            </button>
+
+            <button type="submit" class="submit-btn">
+                Submit Registration
+            </button>
+        </form>
+    </div>
+
+    <script>
+        let teamMemberCount = 1;
+
+        // Add team member functionality
+        document.getElementById('addMemberBtn').addEventListener('click', function () {
+            const container = document.getElementById('teamMembersContainer');
+            const newMemberDiv = document.createElement('div');
+            newMemberDiv.className = 'team-member';
+            newMemberDiv.innerHTML = `
+                <label>
+                    Name
+                    <input
+                        type="text"
+                        class="member-name"
+                        data-index="${teamMemberCount}"
+                    />
+                </label>
+                <label>
+                    Email
+                    <input
+                        type="email"
+                        class="member-email"
+                        data-index="${teamMemberCount}"
+                    />
+                </label>
+                <label>
+                    Gender
+                    <select
+                        class="member-gender"
+                        data-index="${teamMemberCount}"
+                    >
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+            `;
+            container.appendChild(newMemberDiv);
+            teamMemberCount++;
+        });
+
+        // Form submission functionality
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                leaderName: document.getElementById('leaderName').value,
+                leaderEmail: document.getElementById('leaderEmail').value,
+                mobile: document.getElementById('mobile').value,
+                gender: document.getElementById('gender').value,
+                institute: document.getElementById('institute').value,
+                teamName: document.getElementById('teamName').value,
+                teamMembers: []
+            };
+
+            // Get team member data
+            const memberNames = document.querySelectorAll('.member-name');
+            const memberEmails = document.querySelectorAll('.member-email');
+            const memberGenders = document.querySelectorAll('.member-gender');
+
+            for (let i = 0; i < memberNames.length; i++) {
+                const member = {
+                    name: memberNames[i].value,
+                    email: memberEmails[i].value,
+                    gender: memberGenders[i].value
+                };
+                formData.teamMembers.push(member);
+            }
+
+            // Get hackathon data from localStorage
+            const hackathon = JSON.parse(localStorage.getItem("selectedHackathon")) || {};
+            const applications = JSON.parse(localStorage.getItem("applications")) || [];
+
+            // Create new application
+            const newApplication = {
+                ...formData,
+                id: Date.now(),
+                appliedOn: new Date().toISOString(),
+                status: "Registered",
+                hackathon: hackathon
+            };
+
+            // Save to localStorage
+            applications.push(newApplication);
+            localStorage.setItem("applications", JSON.stringify(applications));
+
+            // Show success message
+            alert("Registered successfully!");
+
+            // Redirect to applications page
+            window.location.href = "/applications";
+        });
+    </script>
+</body>
+
+</html>

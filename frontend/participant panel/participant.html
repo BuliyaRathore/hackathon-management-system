@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HackEase</title>
+    <link rel="stylesheet" href="participant.css" />
+    <link rel="stylesheet" href="hackathon.css" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="participant.html" class="logo">HackEase</a>
+        <ul class="nav-links">
+          <li><a href="participant.html" class="active">🏠 Home</a></li>
+          <li><a href="application_participant.html">📄 My Applications</a></li>
+          <li><a href="result_participant.html">🏆 Result</a></li>
+          <li><a href="resources_participant.html">📘 Resources</a></li>
+          <li><a href="query_participant.html">❓ Query</a></li>
+          <li>
+            <a href="profile.html" class="profile-btn active">👤 Profile</a>
+          </li>
+        </ul>
+        <ul id="hackathonList"></ul>
+        <div class="mobile-nav">
+          <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+            ☰
+          </button>
+          <div class="mobile-nav-menu" id="mobileMenu">
+            <a href="participant.html" class="active">🏠 Home</a>
+            <a href="application_participant.html">📄 My Applications</a>
+            <a href="result_participant.html">🏆 Result</a>
+            <a href="resources_participant.html">📘 Resources</a>
+            <a href="query_participant.html">❓ Query</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+<div class="wl">
+  <h1> Welcome Participant</h1>
+</div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Home Section -->
+      <div id="home" class="page-section active">
+        <section class="hackathons-page">
+          <!-- Hero Section -->
+          <div class="hero-section">
+            <div class="hero-text">
+              <h1>Discover <span>Hackathons</span></h1>
+              <p>
+                Level up your skills, compete with the best, and win exciting
+                rewards!
+              </p>
+              <button class="explore-btn" onclick="scrollToCards()">
+                Explore Now
+              </button>
+            </div>
+            <img
+              src="https://cdni.iconscout.com/illustration/premium/thumb/hackathon-competition-5020626-4186757.png"
+              alt="Hackathon"
+              class="hero-img"
+            />
+          </div>
+
+          <!-- Hackathon Cards Section -->
+          <div class="hackathon-cards-container" id="hackathon-cards">  </div>
+        </section>
+
+        <!-- 📞 Contact Note -->
+        <div
+          class="contact-footer"
+          style="margin-top: 2rem; text-align: center; font-size: 15px"
+        >
+          Need help or have questions?
+          <br />
+          Email us at
+          <a href="mailto:support@hackathonhub.com" style="color: #2563eb">
+            support@hackathonhub.com
+          </a>
+          or
+          <a href="query_participant.html" style="color: #2563eb"
+            >submit a query</a
+          >.
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Register for Hackathon</h3>
+          <button class="close-btn" onclick="closeRegistrationModal()">
+            ×
+          </button>
+        </div>
+        <form onsubmit="submitRegistration(event)">
+          <input type="hidden" id="regHackathonId" />
+          <input type="hidden" id="regHackathonName" />
+          <div class="form-group">
+            <label>Team Name *</label>
+            <input
+              type="text"
+              id="regName"
+              placeholder="Enter your team name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Team Leader Name *</label>
+            <input
+              type="text"
+              id="regLeader"
+              placeholder="Full name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Team Leader Email *</label>
+            <input
+              type="email"
+              id="regEmail"
+              placeholder="example@mail.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input
+              type="tel"
+              id="regPhone"
+              placeholder="+91 XXXXX XXXXX"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Members *</label>
+            <select
+              id="regMembers"
+              onchange="generateTeamMemberFields()"
+              required
+            >
+              <option value="">Select Team Size</option>
+              <option value="1">1 Member</option>
+              <option value="2">2 Members</option>
+              <option value="3">3 Members</option>
+              <option value="4">4 Members</option>
+              <option value="5">5 Members</option>
+            </select>
+            <label>Team Members</label>
+            <div class="team-members" id="teamMembersContainer">
+              <!-- Input boxes will be auto-added here -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Project Theme *</label>
+            <select id="regTheme" required>
+              <option value="">Choose Theme</option>
+              <option>AI & ML</option>
+              <option>Web Development</option>
+              <option>Blockchain</option>
+              <option>Healthcare</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Project Idea *</label>
+            <textarea
+              id="regIdea"
+              placeholder="Describe your project..."
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Upload File *</label>
+            <input type="file" id="projectFile" required />
+          </div>
+          <div id="additionalIdeasContainer"></div>
+          <div class="button-container">
+            <button type="button" class="add-idea-btn" onclick="addIdeaBlock()">
+              <span>➕</span> Add Another Idea
+            </button>
+            <div class="button-separator"></div>
+            <button type="submit" class="submit-btn">
+              <span>🚀</span> Submit Application
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="participant.js"></script>
+    <script>
+      // Smooth scroll to cards section
+      function scrollToCards() {
+        const cardsSection = document.getElementById("hackathon-cards");
+        cardsSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+      function viewHackathon(hackathonId) {
+        window.location.href = `hackathons_details.html?id=${hackathonId}`;
+      }
+      // Logout Function
+      function logout() {
+        if (confirm("Are you sure you want to logout?")) {
+          // 🧹 Clear session/localStorage
+          localStorage.removeItem("loggedUser");
+          localStorage.removeItem("myApplications"); // optional, if you want to clear apps too
+          alert("✅ Logged out successfully!");
+          // 🔁 Redirect to homepage/index
+          window.location.href = "../index.html";
+        }
+      }
+
+      // NAVBAR JAVASCRIPT
+      function toggleMobileNav() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

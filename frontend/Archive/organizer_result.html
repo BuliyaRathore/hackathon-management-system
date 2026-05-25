@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="organizer_result.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon</title>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="organizer.html" class="logo">HackEase</a>
+            <ul class="nav-links">
+                <li><a href="organizer.html">🏠 Home</a></li>
+                <li><a href="organizer_teams.html">👥 Teams</a></li>
+                <li><a href="organizer_result.html">🏆 Result</a></li>
+                <li><a href="organizer_judges.html">👨‍⚖️ Judges</a></li>
+                <li><a href="organizer_query.html">❓ Queries</a></li>
+                <li class="profile-dropdown">
+                    <a href="#" class="profile-btn" onclick="toggleProfileDropdown()">👤 </a>
+<div class="dropdown-content" id="profileDropdown">
+  <div class="profile-header">
+    <h3 id="profileName">Rajesh Kumar</h3>
+    <p>Organizer</p>
+  </div>
+  <div class="profile-info">
+    <div class="info-item">
+      <span class="info-icon">📧</span>
+      <span id="profileEmail">rajesh.kumar@hackease.com</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">📱</span>
+      <span id="profilePhone">+91 98765 43210</span>
+    </div>
+  </div>
+  <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profile</button>
+  <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+</div>
+                </li>
+            </ul>
+            <div class="mobile-nav">
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</button>
+                <div class="mobile-nav-menu" id="mobileMenu">
+                    <a href="organizer.html">🏠 Home</a>
+                    <a href="organizer_teams.html">👥 Teams</a>
+                    <a href="organizer_result.html">🏆 Result</a>
+                    <a href="organizer_judges.html">👨‍⚖️ Judges</a>
+                    <a href="organizer_query.html">❓ Queries</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Hackathon Results</h1>
+            <p>Manage and View Your Hackathon Results</p>
+        </div>
+
+        <button class="back-btn" onclick="showHackathonList()">← Back to Hackathon List</button>
+
+        <!-- Hackathon List Section -->
+        <div class="hackathon-list-section" id="hackathonListSection">
+            <div class="hackathon-list" id="hackathonList">
+                <!-- Hackathon cards will be populated here -->
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-header">
+                <div>
+                    <div class="results-title" id="resultsTitle">Hackathon Results</div>
+                    <div class="results-date" id="resultsDate">Date</div>
+                </div>
+            </div>
+
+            <div class="leaderboard">
+                <div class="leaderboard-header">
+                    🏆 Final Leaderboard
+                </div>
+                <div id="leaderboardContent">
+                    <!-- Leaderboard will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Profile Edit Modal -->
+<div class="profile-edit-overlay" id="profileEditModal">
+    <div class="profile-edit-modal">
+        <div class="profile-edit-header">
+            <h3>✏️ Edit Profile</h3>
+        </div>
+        <div class="profile-edit-body">
+            <form id="profileEditForm">
+                <div class="profile-form-group">
+                    <label for="editProfileName">👤 Full Name</label>
+                    <input type="text" id="editProfileName" required>
+                </div>
+                <div class="profile-form-group">
+                    <label for="editProfileEmail">📧 Email Address</label>
+                    <input type="email" id="editProfileEmail" required>
+                </div>
+                <div class="profile-form-group">
+                    <label for="editProfilePhone">📱 Phone Number</label>
+                    <input type="tel" id="editProfilePhone" required>
+                </div>
+            </form>
+        </div>
+        <div class="profile-edit-footer">
+            <button class="btn-save-profile" onclick="saveProfile()">💾 Save Changes</button>
+            <button class="btn-cancel-profile" onclick="closeProfileEdit()">❌ Cancel</button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // newbackend..
+        function updateScore(teamId) {
+  const score = document.getElementById(`score-${teamId}`).value;
+
+  fetch(`http://localhost:5000/api/teams/score/${teamId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ score })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Score updated!");
+    console.log(data);
+  });
+}
+// done;
+        // Sample data - replace with actual data from your backend
+        const hackathonsData = [
+            {
+                id: 1,
+                name: "TechFest 2024",
+                date: "March 15, 2024",
+                status: "completed",
+                totalTeams: 15,
+                totalParticipants: 45,
+                results: [
+                    { team: "Code Warriors", members: "Rahul, Priya, Amit", score: 95, judge: "Dr. Sarah Johnson", comments: "Outstanding innovation and technical execution. The team demonstrated exceptional problem-solving skills and delivered a polished product." },
+                    { team: "Digital Innovators", members: "Sarah, Mike, John", score: 88, judge: "Prof. Michael Chen", comments: "Great concept with solid implementation. Could improve on user experience design but overall excellent work." },
+                    { team: "Cyber Guardians", members: "Alex, Emma, David", score: 82, judge: "Dr. Emily Rodriguez", comments: "Good security-focused approach with practical applications. Team showed strong collaboration skills." },
+                    { team: "Tech Titans", members: "Lisa, Tom, Jack", score: 78, judge: "John Smith", comments: "Solid technical foundation but needs better project planning. Good potential for future development." },
+                    { team: "Future Builders", members: "Nina, Sam, Chris", score: 75, judge: "Dr. Sarah Johnson", comments: "Creative approach to problem-solving. Implementation could be more robust but ideas are innovative." },
+                    { team: "Innovation Squad", members: "Maya, Ryan, Luke", score: 72, judge: "Prof. Michael Chen", comments: "Good teamwork and presentation skills. Technical execution needs improvement but concept is sound." },
+                    { team: "Code Breakers", members: "Zoe, Max, Ben", score: 70, judge: "Dr. Emily Rodriguez", comments: "Interesting algorithm implementation. Could benefit from better documentation and testing." },
+                    { team: "Digital Dreams", members: "Ava, Leo, Kai", score: 68, judge: "John Smith", comments: "Ambitious project with good vision. Needs more time for complete implementation but shows promise." }
+                ]
+            },
+            {
+                id: 2,
+                name: "AI Challenge 2024",
+                date: "March 20, 2024",
+                status: "completed",
+                totalTeams: 12,
+                totalParticipants: 36,
+                results: [
+                    { team: "Neural Networks", members: "Dr. Smith, Alice, Bob", score: 92, judge: "Dr. AI Expert", comments: "Impressive machine learning model with real-world applications. Excellent understanding of neural network architecture." },
+                    { team: "ML Masters", members: "Carol, Dave, Eve", score: 89, judge: "Prof. Data Science", comments: "Strong data preprocessing and feature engineering. Model performance is excellent with good validation techniques." },
+                    { team: "AI Pioneers", members: "Frank, Grace, Henry", score: 85, judge: "Dr. AI Expert", comments: "Innovative approach to AI problem-solving. Could improve on model interpretability but results are promising." },
+                    { team: "Deep Learning", members: "Ivy, Jack, Kate", score: 80, judge: "Prof. Data Science", comments: "Good deep learning implementation. Needs better hyperparameter tuning but concept is solid." },
+                    { team: "Data Scientists", members: "Liam, Mia, Noah", score: 77, judge: "Dr. AI Expert", comments: "Thorough data analysis and visualization. ML model could be more sophisticated but insights are valuable." },
+                    { team: "Algorithm Aces", members: "Olivia, Paul, Quinn", score: 73, judge: "Prof. Data Science", comments: "Creative algorithmic approach. Implementation is basic but shows understanding of core concepts." }
+                ]
+            },
+            {
+                id: 3,
+                name: "Web Dev Marathon",
+                date: "March 25, 2024",
+                status: "completed",
+                totalTeams: 18,
+                totalParticipants: 54,
+                results: [
+                    { team: "Full Stack Heroes", members: "React Master, Node Pro, DB Expert", score: 90, judge: "Senior Web Developer", comments: "Exceptional full-stack development skills. Clean code architecture and excellent API design." },
+                    { team: "Frontend Wizards", members: "CSS Guru, JS Ninja, UX Designer", score: 87, judge: "UI/UX Expert", comments: "Outstanding user interface design and responsive layout. JavaScript functionality is impressive." },
+                    { team: "Backend Legends", members: "API King, Database Queen, Server Admin", score: 84, judge: "Senior Web Developer", comments: "Robust backend architecture with efficient database design. API documentation is comprehensive." },
+                    { team: "MERN Stack", members: "MongoDB Expert, Express Master, React Dev", score: 81, judge: "Full Stack Architect", comments: "Good MERN stack implementation. Could optimize database queries but overall solid development." },
+                    { team: "Vue Warriors", members: "Vue Expert, Nuxt Master, Vuex Pro", score: 78, judge: "UI/UX Expert", comments: "Creative Vue.js implementation with good state management. Performance could be better optimized." },
+                    { team: "Angular Squad", members: "Angular Expert, TypeScript Master, RxJS Pro", score: 76, judge: "Senior Web Developer", comments: "Strong Angular development with good TypeScript usage. Component architecture is well-structured." },
+                    { team: "Laravel Team", members: "PHP Expert, Laravel Master, MySQL Pro", score: 74, judge: "Full Stack Architect", comments: "Solid PHP development with Laravel best practices. Database relationships are well-designed." }
+                ]
+            },
+            {
+                id: 4,
+                name: "Mobile App Hackathon",
+                date: "April 5, 2024",
+                status: "completed",
+                totalTeams: 10,
+                totalParticipants: 30,
+                results: [
+                    { team: "Flutter Masters", members: "Dart Expert, Flutter Pro, Firebase King", score: 94, judge: "Mobile App Expert", comments: "Excellent Flutter development with smooth animations and responsive design. Firebase integration is flawless." },
+                    { team: "React Native", members: "RN Expert, Redux Master, Native Pro", score: 91, judge: "Cross-platform Specialist", comments: "Outstanding React Native implementation with efficient state management. Performance is near-native quality." },
+                    { team: "iOS Developers", members: "Swift Expert, UIKit Master, Core Data Pro", score: 86, judge: "iOS Development Lead", comments: "Beautiful iOS app with excellent user experience. Core Data implementation is well-optimized." },
+                    { team: "Android Squad", members: "Kotlin Expert, Android Master, Room Pro", score: 83, judge: "Android Expert", comments: "Solid Android development with modern Kotlin practices. Room database integration is efficient." },
+                    { team: "Xamarin Team", members: "C# Expert, Xamarin Master, MVVM Pro", score: 79, judge: "Cross-platform Specialist", comments: "Good Xamarin implementation with proper MVVM architecture. Could improve on UI/UX design." }
+                ]
+            },
+            {
+                id: 5,
+                name: "Blockchain Summit",
+                date: "April 10, 2024",
+                status: "ongoing",
+                totalTeams: 8,
+                totalParticipants: 24,
+                results: [] // No results yet as it's ongoing
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function () {
+            displayHackathonList();
+        });
+
+        function displayHackathonList() {
+            const hackathonList = document.getElementById('hackathonList');
+
+            hackathonList.innerHTML = hackathonsData.map(hackathon => `
+                <div class="hackathon-card" onclick="showResults(${hackathon.id})">
+                    <div class="hackathon-name">${hackathon.name}</div>
+                    <div class="hackathon-date">${hackathon.date}</div>
+                    <div class="hackathon-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">${hackathon.totalTeams}</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${hackathon.totalParticipants}</div>
+                            <div class="stat-label">Participants</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${hackathon.results.length}</div>
+                            <div class="stat-label">Results</div>
+                        </div>
+                    </div>
+                    <div class="status-badge ${hackathon.status === 'completed' ? 'status-completed' : 'status-ongoing'}">
+                        ${hackathon.status === 'completed' ? 'Results Available' : 'In Progress'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showResults(hackathonId) {
+            const hackathon = hackathonsData.find(h => h.id === hackathonId);
+
+            if (!hackathon) return;
+
+            if (hackathon.status === 'ongoing') {
+                alert('Results not available yet. Hackathon is still in progress!');
+                return;
+            }
+
+            // Update header
+            document.getElementById('resultsTitle').textContent = hackathon.name + ' - Results';
+            document.getElementById('resultsDate').textContent = hackathon.date;
+
+            // Sort results by score (descending)
+            const sortedResults = [...hackathon.results].sort((a, b) => b.score - a.score);
+
+            // Display leaderboard
+            const leaderboardContent = document.getElementById('leaderboardContent');
+            leaderboardContent.innerHTML = sortedResults.map((result, index) => {
+                const position = index + 1;
+                const positionClass = getPositionClass(position);
+                const trophy = getTrophy(position);
+
+                return `
+                    <div class="team-row">
+                        <div class="position ${positionClass}">${position}</div>
+                        <div class="team-info">
+                            <div class="team-name">${result.team}</div>
+                            <div class="team-members">Members: ${result.members}</div>
+                            <div class="judge-comments">
+                                "${result.comments}"
+                            </div>
+                        </div>
+                        <div class="team-score">
+                            <div class="score-value">${result.score}</div>
+                            <div class="score-label">Points</div>
+                        </div>
+                        <div class="trophy">${trophy}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Show results section and hide hackathon list
+            document.getElementById('hackathonListSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.querySelector('.back-btn').style.display = 'block';
+        }
+
+        function showHackathonList() {
+            document.getElementById('hackathonListSection').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.querySelector('.back-btn').style.display = 'none';
+        }
+
+        function getPositionClass(position) {
+            switch (position) {
+                case 1: return 'first';
+                case 2: return 'second';
+                case 3: return 'third';
+                default: return 'other';
+            }
+        }
+
+        function getTrophy(position) {
+            switch (position) {
+                case 1: return '🥇';
+                case 2: return '🥈';
+                case 3: return '🥉';
+                default: return '';
+            }
+        }
+
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            const mobileDropdown = document.getElementById('mobileProfileDropdown');
+
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                mobileDropdown.classList.toggle('show');
+                dropdown.classList.remove('show');
+            } else {
+                dropdown.classList.toggle('show');
+                mobileDropdown.classList.remove('show');
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Simulate logout - redirect to index.html
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Profile management functions
+function editProfile() {
+    // Get current profile values
+    const currentName = document.getElementById('profileName').textContent;
+    const currentEmail = document.getElementById('profileEmail').textContent;
+    const currentPhone = document.getElementById('profilePhone').textContent;
+    
+    // Populate the edit form
+    document.getElementById('editProfileName').value = currentName;
+    document.getElementById('editProfileEmail').value = currentEmail;
+    document.getElementById('editProfilePhone').value = currentPhone;
+    
+    // Show the modal
+    document.getElementById('profileEditModal').style.display = 'flex';
+    
+    // Close the profile dropdown
+    document.getElementById('profileDropdown').classList.remove('show');
+}
+
+function saveProfile() {
+    // Get new values
+    const newName = document.getElementById('editProfileName').value.trim();
+    const newEmail = document.getElementById('editProfileEmail').value.trim();
+    const newPhone = document.getElementById('editProfilePhone').value.trim();
+    
+    // Validate inputs
+    if (!newName || !newEmail || !newPhone) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Phone validation (basic)
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    if (!phoneRegex.test(newPhone.replace(/[\s\-\(\)]/g, ''))) {
+        alert('Please enter a valid phone number');
+        return;
+    }
+    
+    // Update profile display
+    document.getElementById('profileName').textContent = newName;
+    document.getElementById('profileEmail').textContent = newEmail;
+    document.getElementById('profilePhone').textContent = newPhone;
+    
+    // Close modal
+    closeProfileEdit();
+    
+    // Show success message
+    alert('Profile updated successfully! 🎉');
+}
+
+function closeProfileEdit() {
+    document.getElementById('profileEditModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('profileEditModal');
+    if (e.target === modal) {
+        closeProfileEdit();
+    }
+});
+
+    </script>
+</body>
+
+</html>

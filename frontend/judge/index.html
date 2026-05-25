@@ -1,0 +1,208 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Judge Dashboard - Home</title>
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+    <!-- NAVBAR HTML -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="organizer.html" class="logo">HackEase</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠Home</a></li>
+                <li><a href="applications.html">📝My Applications</a></li>
+                <li> <a href="evaluate-projects.html">📊Evaluate Projects</a></li>
+                <li><a href="results.html">🏆Results</a></li>
+                <li class="profile-dropdown">
+                    <a href="#" class="profile-btn" onclick="toggleProfileDropdown()">👤 </a>
+                    <div class="dropdown-content" id="profileDropdown">
+                        <div class="profile-header">
+                            <h3 id="profileName">Rajesh Kumar</h3>
+                            <p>Judge</p>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-icon">📧</span>
+                                <span id="profileEmail">rajesh.kumar@hackease.com</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">📱</span>
+                                <span id="profilePhone">+91 98765 43210</span>
+                            </div>
+                        </div>
+                        <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profile</button>
+                        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="mobile-nav">
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</button>
+                <div class="mobile-nav-menu" id="mobileMenu">
+                    <a href="index.html">Home</a>
+                    <a href="applications.html">My Applications</a>
+                     <a href="evaluate-projects.html">Evaluate Projects</a>
+                   <a href="results.html">Results</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Edit Modal -->
+    <div class="profile-edit-overlay" id="profileEditModal">
+        <div class="profile-edit-modal">
+            <div class="profile-edit-header">
+                <h3>✏️ Edit Profile</h3>
+            </div>
+            <div class="profile-edit-body">
+                <form id="profileEditForm">
+                    <div class="profile-form-group">
+                        <label for="editProfileName">👤 Full Name</label>
+                        <input type="text" id="editProfileName" required>
+                    </div>
+                    <div class="profile-form-group">
+                        <label for="editProfileEmail">📧 Email Address</label>
+                        <input type="email" id="editProfileEmail" required>
+                    </div>
+                    <div class="profile-form-group">
+                        <label for="editProfilePhone">📱 Phone Number</label>
+                        <input type="tel" id="editProfilePhone" required>
+                    </div>
+                </form>
+            </div>
+            <div class="profile-edit-footer">
+                <button class="btn-save-profile" onclick="saveProfile()">💾 Save Changes</button>
+                <button class="btn-cancel-profile" onclick="closeProfileEdit()">❌ Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Home Page -->
+        <div id="home">
+            <div class="hero-section">
+                 <h1>Welcome, Judge!</h1>
+                <p>Ready to evaluate innovative projects and discover the next generation of tech talent?</p>
+            </div>
+
+              <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>25</h3>
+                    <p>Projects to Evaluate</p>
+                </div>
+                <div class="stat-card">
+                    <h3>12</h3>
+                    <p>Projects Evaluated</p>
+                </div>
+                <div class="stat-card">
+                    <h3>3</h3>
+                    <p>Active Hackathons</p>
+                </div>
+                <div class="stat-card">
+                    <h3>8.5</h3>
+                    <p>Average Score Given</p>
+                </div>
+            </div>
+            
+                <!-- 📅 Hackathon List Section -->
+<div class="hackathon-wrapper">
+  <div id="hackathonList" class="hackathon-card-list">
+    <!-- Cards added by JS -->
+  </div>
+</div>
+
+
+<!-- ✅ Correct placement for the iframe form -->
+ 
+<!-- ✅ Embedded Judge Application Form (Custom Layout) -->
+<div id="judgeFormContainer" style="display:none; margin-top: 2rem; background: rgba(255,255,255,0.97); padding: 2rem; border-radius: 15px; max-width: 900px; margin-left: auto; margin-right: auto; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
+  <h2 style="text-align:center; color:#000000; margin-bottom: 1rem;">Apply as a Judge</h2>
+  <form onsubmit="submitCustomJudgeForm(event)" style="display: grid; gap: 1.2rem;">
+    <div class="form-group">
+      <label for="fname">First Name *</label>
+      <input type="text" id="fname" name="fname" required>
+    </div>
+    <div class="form-group">
+      <label for="lname">Last Name *</label>
+      <input type="text" id="lname" name="lname" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+      <div class="form-section">
+                
+   <div class="form-group">
+      <label for="currentRole">Current Job Title <span class="required">*</span></label>
+           <input type="text" id="currentRole" name="currentRole" required>
+     </div>
+
+     <div class="form-group">
+      <label for="company">Company/Organization <span class="required">*</span></label>
+         <input type="text" id="company" name="company" required>
+     </div>
+
+        <div class="form-row">
+                    <div class="form-group">
+                        <label for="experience">Years of Experience <span class="required">*</span></label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select Experience</option>
+                            <option value="1-2">1-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="11-15">11-15 years</option>
+                            <option value="15+">15+ years</option>
+                        </select>
+                    </div>        
+            </div>
+    <div class="form-group">
+      <label for="linkedin">LinkedIn Profile</label>
+      <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+    </div>
+    <div class="form-group">
+      <label for="expertise">Expertise Area *</label>
+      <select id="expertise" name="expertise" required>
+        <option value="">-- Select --</option>
+        <option>AI & ML</option>
+        <option>Web Development</option>
+        <option>Blockchain</option>
+        <option>Data Science</option>
+        <option>Cybersecurity</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="resume">Upload Resume *</label>
+      <input type="file" id="resume" name="resume" required>
+    </div>
+    <div style="text-align:center; margin-top: 1rem;">
+      <button type="submit" style="padding:0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Submit Application</button>
+    </div>
+  </form>
+</div>
+
+<script>
+function submitCustomJudgeForm(e) {
+  e.preventDefault();
+  alert("🎉 Judge application submitted successfully!");
+  e.target.reset();
+}
+</script>
+
+</div>
+</div>
+
+<!-- 🔍 Modal for Hackathon Details -->
+ 
+<div id="hackathonModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.7); align-items:center; justify-content:center; z-index:1000;">
+  <div style="background:white; padding:2rem; border-radius:15px; max-width:500px; width:90%; position:relative;">
+    <span onclick="closeModal()" style="position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer;">❌</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+  
+        </div>
+     </body>
+</html>   

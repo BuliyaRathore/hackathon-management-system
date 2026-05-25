@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="query_organizer.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Queries - HackEase</title>
+
+</head>
+
+<body>
+
+ <nav class="navbar">
+        <div class="nav-container">
+            <a href="organizer.html" class="logo">HackEase</a>
+            <ul class="nav-links">
+  <li><a href="organizer.html">🏠 Home</a></li>
+  <li><a href="organizer_teams.html">👥 Teams</a></li>
+  <li><a href="organizer_result.html">🏆 Result</a></li>
+  <li><a href="organizer_judges.html">👨‍⚖️ Judges</a></li>
+  <li><a href="organizer_query.html">❓ Queries</a></li>
+  <li class="profile-dropdown">
+    <a href="#" class="profile-btn" onclick="toggleProfileDropdown()">👤 </a>
+<div class="dropdown-content" id="profileDropdown">
+  <div class="profile-header">
+    <h3 id="profileName">Rajesh Kumar</h3>
+    <p>Organizer</p>
+  </div>
+  <div class="profile-info">
+    <div class="info-item">
+      <span class="info-icon">📧</span>
+      <span id="profileEmail">rajesh.kumar@hackease.com</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">📱</span>
+      <span id="profilePhone">+91 98765 43210</span>
+    </div>
+  </div>
+  <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profile</button>
+  <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+</div>
+  </li>
+</ul>
+<div class="mobile-nav">
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</button>
+                <div class="mobile-nav-menu" id="mobileMenu">
+                    <a href="organizer.html">🏠 Home</a>
+                    <a href="organizer_teams.html">👥 Teams</a>
+                    <a href="organizer_result.html">🏆 Result</a>
+                    <a href="organizer_judges.html">👨‍⚖️ Judges</a>
+                    <a href="organizer_query.html">❓ Queries</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4" />
+                    <path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5Z" />
+                </svg>
+                Participant Queries
+            </h1>
+            <p>Manage and respond to participant questions and support requests</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-content">
+                        <h3 id="total-queries">8</h3>
+                        <p>Total Queries</p>
+                    </div>
+                    <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
+                        💬
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-content">
+                        <h3 id="pending-queries" style="color: #ff9800;">3</h3>
+                        <p>Pending</p>
+                    </div>
+                    <div class="stat-icon" style="background: #fff3e0; color: #ff9800;">
+                        ⏳
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-content">
+                        <h3 id="progress-queries" style="color: #1976d2;">2</h3>
+                        <p>In Progress</p>
+                    </div>
+                    <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
+                        🔄
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-content">
+                        <h3 id="resolved-queries" style="color: #4caf50;">3</h3>
+                        <p>Resolved</p>
+                    </div>
+                    <div class="stat-icon" style="background: #e8f5e8; color: #4caf50;">
+                        ✅
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filters-header">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        All Queries <span class="badge" id="all-badge">8</span>
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        Pending <span class="badge" id="pending-badge">3</span>
+                    </button>
+                    <!-- <button class="filter-btn" data-filter="in-progress">
+                        In Progress <span class="badge" id="progress-badge">2</span>
+                    </button> -->
+                    <button class="filter-btn" data-filter="resolved">
+                        Resolved <span class="badge" id="resolved-badge">3</span>
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input type="text" placeholder="Search queries..." id="search-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- Queries Grid -->
+        <div class="queries-grid" id="queries-grid">
+            <!-- Query cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state hidden" id="empty-state">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z" />
+            </svg>
+            <h3>No queries found</h3>
+            <p>No participant queries match the selected filter or search term.</p>
+        </div>
+    </div>
+
+<!-- Profile Edit Modal -->
+<div class="profile-edit-overlay" id="profileEditModal">
+    <div class="profile-edit-modal">
+        <div class="profile-edit-header">
+            <h3>✏️ Edit Profile</h3>
+        </div>
+        <div class="profile-edit-body">
+            <form id="profileEditForm">
+                <div class="profile-form-group">
+                    <label for="editProfileName">👤 Full Name</label>
+                    <input type="text" id="editProfileName" required>
+                </div>
+                <div class="profile-form-group">
+                    <label for="editProfileEmail">📧 Email Address</label>
+                    <input type="email" id="editProfileEmail" required>
+                </div>
+                <div class="profile-form-group">
+                    <label for="editProfilePhone">📱 Phone Number</label>
+                    <input type="tel" id="editProfilePhone" required>
+                </div>
+            </form>
+        </div>
+        <div class="profile-edit-footer">
+            <button class="btn-save-profile" onclick="saveProfile()">💾 Save Changes</button>
+            <button class="btn-cancel-profile" onclick="closeProfileEdit()">❌ Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        // newbackend...
+       
+// fetch("http://localhost:5000/api/teams/queries")
+//   .then(res => res.json())
+//   .then(data => {
+//     const list = document.getElementById("queryList");
+//     data.forEach(team => {
+//       const li = document.createElement("li");
+//       li.innerText = `${team.teamName}: ${team.query}`;
+//       list.appendChild(li);
+//     });
+//   });
+// done;
+
+      let queries = [];
+
+fetch("http://localhost:5000/api/query")
+  .then(res => res.json())
+  .then(data => {
+    queries = data.map((q, index) => ({
+        _id: q._id, // 👈 This is necessary for PATCH request
+      id: "Q" + String(index + 1).padStart(3, '0'),
+      participantName: q.name,
+      email: q.email,
+      subject: q.category + " Query",
+      category: q.category,
+      description: q.message,
+      priority: "medium", // or use q.priority if added in model
+      status: q.status || "pending",
+      dateSubmitted: q.submittedOn,
+      response: q.solution || null,
+      responseDate: null
+    }));
+
+    updateStats();
+    renderQueries();
+  })
+  .catch(err => {
+    console.error("❌ Failed to fetch queries:", err);
+  });
+
+        let currentFilter = 'all';
+        let searchTerm = '';
+
+        function getStatusIcon(status) {
+            switch (status) {
+                case 'resolved': return '✅';
+                case 'pending': return '⏳';
+                // case 'in-progress': return '🔄';
+                default: return '⏳';
+            }
+        }
+
+        function getPriorityColor(priority) {
+            switch (priority) {
+                case 'high': return 'priority-high';
+                case 'medium': return 'priority-medium';
+                case 'low': return 'priority-low';
+                default: return 'priority-medium';
+            }
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleString('en-IN');
+        }
+
+        function createQueryCard(query) {
+            return `
+                <div class="query-card" data-status="${query.status}">
+                    <div class="query-header">
+                        <div class="participant-info">
+                            <div class="participant-name">${query.participantName}</div>
+                            <div class="participant-email">${query.email}</div>
+                        </div>
+                        <div class="query-meta">
+                            <div class="query-id">${query.id}</div>
+                            <div class="priority-badge ${getPriorityColor(query.priority)}">
+                                ${query.priority}
+                            </div>
+                            <div class="status-badge status-${query.status}">
+                                ${getStatusIcon(query.status)} ${query.status.replace('-', ' ').toUpperCase()}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-date">
+                        📅 Submitted: ${formatDate(query.dateSubmitted)}
+                    </div>
+
+                    <div class="query-subject">${query.subject}</div>
+                    <div class="query-category">${query.category}</div>
+                    <div class="query-description">${query.description}</div>
+
+                   ${query.response ? `
+  <div class="response-section">
+    <h4>Response:</h4>
+    <div class="response-text">${query.response}</div>
+    <div class="response-date">Responded on: ${formatDate(query.responseDate)}</div>
+  </div>
+` : `
+  <div class="response-input">
+    <textarea id="response-${query._id}" placeholder="Type your response..."></textarea>
+    <button class="btn btn-primary" onclick="sendResponse('${query._id}')">Send Response</button>
+  </div>
+`}
+
+
+
+                   `;
+        }
+
+        function updateStats() {
+    const stats = {
+        total: queries.length,
+        pending: queries.filter(q => q.status.toLowerCase() === 'pending').length,
+        resolved: queries.filter(q => q.status.toLowerCase() === 'resolved').length
+    };
+
+    document.getElementById('total-queries').textContent = stats.total;
+    document.getElementById('pending-queries').textContent = stats.pending;
+    document.getElementById('resolved-queries').textContent = stats.resolved;
+
+    document.getElementById('all-badge').textContent = stats.total;
+    document.getElementById('pending-badge').textContent = stats.pending;
+    document.getElementById('resolved-badge').textContent = stats.resolved;
+}
+
+
+        function filterQueries() {
+            let filteredQueries = queries;
+
+            // Filter by status
+            if (currentFilter !== 'all') {
+               filteredQueries = filteredQueries.filter(query =>
+              query.status.toLowerCase() === currentFilter.toLowerCase() );
+
+            }
+
+            // Filter by search term
+            if (searchTerm) {
+                filteredQueries = filteredQueries.filter(query =>
+                    query.participantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    query.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    query.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    query.description.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            return filteredQueries;
+        }
+
+        function renderQueries() {
+            const grid = document.getElementById('queries-grid');
+            const emptyState = document.getElementById('empty-state');
+
+            const filteredQueries = filterQueries();
+
+            grid.innerHTML = filteredQueries.map(query => createQueryCard(query)).join('');
+
+            if (filteredQueries.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function updateStatus(queryId, newStatus) {
+            const query = queries.find(q => q.id === queryId);
+            if (query) {
+                query.status = newStatus;
+                updateStats();
+                renderQueries();
+            }
+        }
+
+        function markResolved(queryId) {
+            const query = queries.find(q => q.id === queryId);
+            if (query) {
+                query.status = 'resolved';
+                // In a real app, you'd prompt for a response
+                if (!query.response) {
+                    query.response = "Thank you for your query. This has been resolved. Please let us know if you need any further assistance.";
+                    query.responseDate = new Date().toISOString();
+                }
+                updateStats();
+                renderQueries();
+            }
+        }
+        function markResolved(queryId) {
+  // your existing code
+}
+
+function sendResponse(id) {
+  const textarea = document.getElementById(`response-${id}`);
+  const responseText = textarea.value.trim();
+
+  if (!responseText) {
+    alert("Please type a response.");
+    return;
+  }
+
+  fetch(`http://localhost:5000/api/query/${id}/respond`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ response: responseText })
+  })
+    .then(res => res.json())
+    .then(updatedQuery => {
+      alert("✅ Response sent successfully!");
+      const idx = queries.findIndex(q => q._id === id);
+      if (idx !== -1) {
+        queries[idx].response = updatedQuery.solution;
+        queries[idx].status = "resolved";
+        updateStats();
+        renderQueries();
+      }
+    })
+    .catch(err => {
+      alert("❌ Error sending response");
+      console.error(err);
+    });
+}
+
+
+        function contactParticipant(email) {
+            window.location.href = `mailto:${email}`;
+        }
+
+        // Filter button handlers
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderQueries();
+            });
+        });
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderQueries();
+        });
+
+        // Initialize
+        updateStats();
+        renderQueries();
+
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+
+              function toggleProfileDropdown() {
+    const dropdown = document.getElementById('profileDropdown');
+    const mobileDropdown = document.getElementById('mobileProfileDropdown');
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        mobileDropdown.classList.toggle('show');
+        dropdown.classList.remove('show');
+    } else {
+        dropdown.classList.toggle('show');
+        mobileDropdown.classList.remove('show');
+    }
+        }
+
+              function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Simulate logout - redirect to index.html
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Profile management functions
+function editProfile() {
+    // Get current profile values
+    const currentName = document.getElementById('profileName').textContent;
+    const currentEmail = document.getElementById('profileEmail').textContent;
+    const currentPhone = document.getElementById('profilePhone').textContent;
+    
+    // Populate the edit form
+    document.getElementById('editProfileName').value = currentName;
+    document.getElementById('editProfileEmail').value = currentEmail;
+    document.getElementById('editProfilePhone').value = currentPhone;
+    
+    // Show the modal
+    document.getElementById('profileEditModal').style.display = 'flex';
+    
+    // Close the profile dropdown
+    document.getElementById('profileDropdown').classList.remove('show');
+}
+
+function saveProfile() {
+    // Get new values
+    const newName = document.getElementById('editProfileName').value.trim();
+    const newEmail = document.getElementById('editProfileEmail').value.trim();
+    const newPhone = document.getElementById('editProfilePhone').value.trim();
+    
+    // Validate inputs
+    if (!newName || !newEmail || !newPhone) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Phone validation (basic)
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    if (!phoneRegex.test(newPhone.replace(/[\s\-\(\)]/g, ''))) {
+        alert('Please enter a valid phone number');
+        return;
+    }
+    
+    // Update profile display
+    document.getElementById('profileName').textContent = newName;
+    document.getElementById('profileEmail').textContent = newEmail;
+    document.getElementById('profilePhone').textContent = newPhone;
+    
+    // Close modal
+    closeProfileEdit();
+    
+    // Show success message
+    alert('Profile updated successfully! 🎉');
+}
+
+function closeProfileEdit() {
+    document.getElementById('profileEditModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('profileEditModal');
+    if (e.target === modal) {
+        closeProfileEdit();
+    }
+});
+
+    </script>
+</body>
+
+</html>

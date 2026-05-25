@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackEase - Your Gateway to Innovation</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="./index.html" class="logo">HackEase</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#contactus">Contact Us</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+                <a href="login1.html" class="btn btn-secondary">Login</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+                <li><a href="#features" onclick="closeMobileMenu()">Features</a></li>
+                <li><a href="#support" onclick="closeMobileMenu()">Support</a></li>
+                <li><a href="#contactus" onclick="closeMobileMenu()">Contact Us</a></li>
+            </ul>
+            <div class="mobile-auth-buttons">
+                <a href="#" class="btn btn-secondary" onclick="showAuthModal(); closeMobileMenu();">Login</a>
+                <a href="#" class="btn btn-primary" onclick="showAuthModal(); closeMobileMenu();">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Welcome to HackEase</h1>
+                    <p>Your gateway to explore, host, and win hackathons!</p>
+                    <a href="#Hackathons" class="btn btn-primary">Discover Hackathons</a>
+                </div>
+                <div class="hero-image">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23ffffff' rx='20'/><rect x='50' y='50' width='300' height='200' fill='%236366f1' rx='10'/><circle cx='200' cy='120' r='30' fill='%23ffffff'/><rect x='170' y='160' width='60' height='8' fill='%23ffffff' rx='4'/><rect x='150' y='180' width='100' height='8' fill='%23ffffff' rx='4'/></svg>"
+                        alt="Hackathon Hero">
+                </div>
+            </div>
+        </section>
+
+        <div class="hackathons-section">
+            <section id="Hackathons" class="features">
+                <h2 class="section-title">Live Hackathons</h2>
+
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label class="filter-label">Search</label>
+                            <input type="text" class="filter-input" placeholder="Search hackathons..."
+                                id="searchFilter">
+                        </div>
+                    </div>
+                </div>
+                <!-- 1 line add  at place of dummy data -->
+                <div class="hackathons-grid" id="hackathonsGrid"></div>
+
+
+                <!-- About Section -->
+                <section id="about" class="about">
+                    <div class="about-container">
+                        <h2 class="section-title">About HackEase</h2>
+                        <div class="about-content">
+                            <div class="about-text">
+                                <p>HackEase is a revolutionary platform designed to bridge the gap between innovation
+                                    and
+                                    opportunity. We believe that every great idea deserves a platform to flourish, and
+                                    every
+                                    developer deserves access to exciting challenges that push the boundaries of
+                                    technology.</p>
+
+                                <p>Founded in 2024, HackEase has quickly become the go-to destination for hackathon
+                                    enthusiasts
+                                    worldwide. Our platform serves three distinct communities: passionate participants
+                                    looking
+                                    to showcase their skills, dedicated organizers creating meaningful experiences, and
+                                    expert
+                                    judges ensuring fair evaluation of groundbreaking projects.</p>
+
+                                <p>What sets HackEase apart is our commitment to fostering genuine innovation. We don't
+                                    just
+                                    host events; we create ecosystems where creativity meets opportunity, where ideas
+                                    transform
+                                    into reality, and where the next generation of tech leaders emerge.</p>
+
+                                <div class="about-stats">
+                                    <div class="stat-item">
+                                        <h3>500+</h3>
+                                        <p>Hackathons Hosted</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <h3>50K+</h3>
+                                        <p>Active Participants</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <h3>200+</h3>
+                                        <p>Partner Organizations</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <h3>1M+</h3>
+                                        <p>Projects Submitted</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="team-section">
+                            <h3 class="team-title">Meet Our Team</h3>
+                            <div class="team-grid">
+                                <div class="team-card">
+                                    <div class="team-photo">
+                                        <img src="./IMG_E3419.png" alt="Harshit Agarwal">
+                                    </div>
+                                    <div class="team-info">
+                                        <h4>Harshit Agarwal</h4>
+                                        <p class="team-role">CEO & Founder</p>
+                                        <p class="team-bio">Visionary leader with 8+ years in tech innovation and
+                                            startup
+                                            ecosystem development.</p>
+                                        <div class="team-links">
+                                            <a href="https://portfolio--harshit.vercel.app/" target="_blank">🌐</a>
+                                            <a href="https://www.linkedin.com/in/harshit-agarwal010/"
+                                                target="_blank">💼</a>
+                                            <a href="mailto:iharshitagarwal01@gmail.com">✉️</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="team-card">
+                                    <div class="team-photo">
+                                        <img src="./poojan.png" alt="Poojan Agarwal">
+                                    </div>
+                                    <div class="team-info">
+                                        <h4>Poojan Agarwal</h4>
+                                        <p class="team-role">CTO & Co-Founder</p>
+                                        <p class="team-bio">Full-stack architect passionate about scalable platforms and
+                                            developer experience.</p>
+                                        <div class="team-links">
+                                            <!-- <a href="hpriya-dev.com" target="_blank">🌐</a>  -->
+                                            <a href="https://www.linkedin.com/in/poojan-agarwal-587b73290/"
+                                                target="_blank">💼</a>
+                                            <a href="mailto:poojanagarwal60@gmail.com.com">✉️</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="team-card">
+                                    <div class="team-photo">
+                                        <img src="./buliya .png" alt="Buliya Rathore">
+                                    </div>
+                                    <div class="team-info">
+                                        <h4>Buliya Rathore</h4>
+                                        <p class="team-role">Head of Product</p>
+                                        <p class="team-bio">Product strategist focused on creating intuitive user
+                                            experiences
+                                            and community growth.</p>
+                                        <div class="team-links">
+                                            <!-- <a href="https://rahul-product.com" target="_blank">🌐</a> -->
+                                            <a href="https://www.linkedin.com/in/buliya-rathore-331421293/"
+                                                target="_blank">💼</a>
+                                            <a href="mailto:buliyarathore3@gmaail.com.com">✉️</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="team-card">
+                                    <div class="team-photo">
+                                        <img src="./km.png" alt="Kushagra Modi">
+                                    </div>
+                                    <div class="team-info">
+                                        <h4>Kushagra Modi</h4>
+                                        <p class="team-role">Head of Marketing</p>
+                                        <p class="team-bio">Creative marketer driving community engagement and brand
+                                            growth
+                                            across global markets.</p>
+                                        <div class="team-links">
+                                            <!-- <a href="https://sneha-creative.com" target="_blank">🌐</a> -->
+                                            <a href="https://www.linkedin.com/in/kushagra-modi-255a25294/"
+                                                target="_blank">💼</a>
+                                            <a href="mailto:sneha@hackease.com">✉️</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="features">
+                    <div class="features-container">
+                        <h2 class="section-title">Explore Features</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🏆</div>
+                                <h3>Explore Hackathons</h3>
+                                <p>Discover amazing hackathons from around the world and join the innovation community.
+                                </p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🚀</div>
+                                <h3>Host Events</h3>
+                                <p>Create and manage your own hackathons with our powerful organizer tools.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⚖️</div>
+                                <h3>Judge Competitions</h3>
+                                <p>Evaluate projects fairly with our comprehensive judging system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sponsors Section -->
+                <section id="sponsors" class="sponsors">
+                    <div class="sponsors-container">
+                        <h2 class="section-title">Our Partners</h2>
+                        <div class="sponsors-grid">
+                            <div class="sponsor-card">
+                                <div class="sponsor-logo">Partner 1</div>
+                            </div>
+                            <div class="sponsor-card">
+                                <div class="sponsor-logo">Partner 2</div>
+                            </div>
+                            <div class="sponsor-card">
+                                <div class="sponsor-logo">Partner 3</div>
+                            </div>
+                            <div class="sponsor-card">
+                                <div class="sponsor-logo">Partner 4</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Support Section -->
+                <section id="support" class="support">
+                    <div class="support-container">
+                        <h2 class="section-title">Support Center</h2>
+                        <p class="support-intro">Need help? We're here to assist you 24/7 with any questions or issues.
+                        </p>
+
+                        <div class="support-options">
+                            <div class="support-card">
+                                <div class="support-icon">📚</div>
+                                <h3>Documentation</h3>
+                                <p>Comprehensive guides and tutorials to help you get started with HackEase.</p>
+                                <a href="#" class="btn btn-primary">View Docs</a>
+                            </div>
+
+                            <div class="support-card">
+                                <div class="support-icon">💬</div>
+                                <h3>Live Chat</h3>
+                                <p>Get instant help from our support team through live chat support.</p>
+                                <a href="#" class="btn btn-primary">Start Chat</a>
+                            </div>
+
+                            <div class="support-card">
+                                <div class="support-icon">🎥</div>
+                                <h3>Video Tutorials</h3>
+                                <p>Watch step-by-step video guides for all HackEase features.</p>
+                                <a href="#" class="btn btn-primary">Watch Now</a>
+                            </div>
+                        </div>
+
+                        <div class="faq-section">
+                            <h3>Frequently Asked Questions</h3>
+                            <div class="faq-grid">
+                                <div class="faq-item">
+                                    <h4>How do I register for a hackathon?</h4>
+                                    <p>Simply browse our hackathons, select the one you're interested in, and click
+                                        "Register".
+                                        You'll need to create an account first.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>Can I organize my own hackathon?</h4>
+                                    <p>Yes! Create an organizer account and use our comprehensive tools to plan,
+                                        promote, and
+                                        manage your hackathon event.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>How does the judging process work?</h4>
+                                    <p>Our certified judges evaluate projects based on innovation, technical
+                                        implementation,
+                                        presentation, and overall impact.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>What prizes can I win?</h4>
+                                    <p>Prizes vary by hackathon but include cash rewards, internships, mentorship
+                                        opportunities,
+                                        and tech gadgets.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contactus" class="contact">
+                    <div class="contact-container">
+                        <h2 class="section-title1">Contact Us</h2>
+                        <p>Have questions? We'd love to help you get started with HackEase.</p>
+
+                        <div class="contact-info">
+                            <div class="contact-method">
+                                <div class="contact-icon">📧</div>
+                                <h4>Email Us</h4>
+                                <p>support@hackease.com</p>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">📞</div>
+                                <h4>Call Us</h4>
+                                <p>+91 9876543210</p>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">📍</div>
+                                <h4>Visit Us</h4>
+                                <p>Tech Hub, Sector 5, Noida, UP</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    </main>
+
+
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <!-- script added -->
+    <script>
+        async function loadHackathons() {
+            try {
+                const res = await fetch("http://localhost:5000/api/hackathon/all");
+                const hackathons = await res.json();
+
+                const grid = document.getElementById("hackathonsGrid");
+                grid.innerHTML = "";
+
+                hackathons.forEach(hack => {
+                    const card = document.createElement("div");
+                    card.className = "hackathon-card";
+                    card.innerHTML = `
+          <div class="card-header">
+            <div class="hackathon-logo">🏁</div>
+            <div class="status-badge">${getStatusBadge(hack)}</div>
+          </div>
+          <div class="card-content">
+            <h3 class="hackathon-title">${hack.title}</h3>
+            <p class="hackathon-organizer">by ${hack.createdBy || "Organizer"}</p>
+            <p class="hackathon-description">${hack.description || "No description provided."}</p>
+
+            <div class="hackathon-details">
+              <div class="detail-item"><span class="detail-icon">📍</span><span>${hack.location}</span></div>
+              <div class="detail-item"><span class="detail-icon">📅</span><span>${formatDate(hack.regStart)} - ${formatDate(hack.regEnd)}</span></div>
+              <div class="detail-item"><span class="detail-icon">👥</span><span>Team Size: ${hack.maxTeamSize}</span></div>
+            </div>
+
+            <div class="hackathon-prize">
+              🏆 Prizes: 1st - ${hack.prize1 || 'N/A'}, 2nd - ${hack.prize2 || 'N/A'}, 3rd - ${hack.prize3 || 'N/A'}
+            </div>
+
+            <div class="card-actions">
+              <a href="login1.html" class="btn btn-primary">Register Now</a>
+            </div>
+          </div>
+        `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                console.error("❌ Error loading hackathons:", err);
+            }
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            });
+        }
+
+        function getStatusBadge(hack) {
+            const now = new Date();
+            const regStart = new Date(hack.regStart);
+            const regEnd = new Date(hack.regEnd);
+            if (now < regStart) return "⏳ UPCOMING";
+            if (now >= regStart && now <= regEnd) return "● LIVE";
+            return "✓ ENDED";
+        }
+
+        // Call on load
+        document.addEventListener("DOMContentLoaded", loadHackathons);
+
+        // Filter functionality
+        function filterHackathons() {
+            const cards = hackathonsGrid.querySelectorAll('.hackathon-card');
+            const searchValue = searchFilter.value.toLowerCase();
+
+            cards.forEach(card => {
+                const cardTitle = card.querySelector('.hackathon-title').textContent.toLowerCase();
+                const cardDescription = card.querySelector('.hackathon-description').textContent.toLowerCase();
+                const cardLocation = card.querySelector('.detail-item span:nth-child(2)').textContent
+                    .toLowerCase();
+
+                const searchMatch = !searchValue || cardTitle.includes(searchValue) || cardDescription.includes(
+                    searchValue) || cardLocation.includes(searchValue);
+
+                if (searchMatch) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.6s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        searchFilter.addEventListener('input', filterHackathons);
+    </script>
+
+
+</body>
+
+</html>

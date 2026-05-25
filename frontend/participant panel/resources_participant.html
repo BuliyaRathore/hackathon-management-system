@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources - HackEase</title>
+  <link rel="stylesheet" href="participant.css" />
+</head>
+
+<body>
+   <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="participant.html" class="logo">HackEase</a>
+        <ul class="nav-links">
+          <li><a href="participant.html" class="active">🏠 Home</a></li>
+          <li><a href="application_participant.html">📄 My Applications</a></li>
+          <li><a href="result_participant.html">🏆 Result</a></li>
+          <li><a href="resources_participant.html">📘 Resources</a></li>
+          <li><a href="query_participant.html">❓ Query</a></li>
+          <li>
+            <a href="profile.html" class="profile-btn active">👤 Profile</a>
+          </li>
+        </ul>
+        <ul id="hackathonList"></ul>
+        <div class="mobile-nav">
+          <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+            ☰
+          </button>
+          <div class="mobile-nav-menu" id="mobileMenu">
+            <a href="participant.html" class="active">🏠 Home</a>
+            <a href="application_participant.html">📄 My Applications</a>
+            <a href="result_participant.html">🏆 Result</a>
+            <a href="resources_participant.html">📘 Resources</a>
+            <a href="query_participant.html">❓ Query</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Resources Section -->
+    <div id="resources" class="page-section active">
+      <h2 style="margin-bottom: 0.5rem;">📘 Resources & Guidelines</h2>
+      <p style="margin-bottom: 1.5rem; font-size: 16px; color: #444;">
+        Boost your hackathon journey with these helpful materials:
+      </p>
+      <ul class="resource-list">
+        <li>
+          <a href="resources/submission-checklist.pdf" download>
+            📄 <strong>Hackathon Submission Checklist</strong>
+            <span>– What to submit and when</span>
+          </a>
+        </li>
+        <li>
+          <a href="resources/presentation-guide.pdf" download>
+            📚 <strong>Project Presentation Guide</strong>
+            <span>– How to pitch your idea effectively</span>
+          </a>
+        </li>
+        <li>
+          <a href="resources/judging-rubric.pdf" download>
+            🎯 <strong>Judging Criteria & Scoring Rubric</strong>
+            <span>– Understand how your project will be evaluated</span>
+          </a>
+        </li>
+        <li>
+          <a href="resources/template.zip" download>
+            📦 <strong>Sample Project Template (ZIP)</strong>
+            <span>– Ready-to-use structure for your submission</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div class="profile-edit-overlay" id="profileEditModal">
+    <div class="profile-edit-modal">
+      <div class="profile-edit-header">
+        <h3>✏️ Edit Profile</h3>
+      </div>
+      <div class="profile-edit-body">
+        <form id="profileEditForm">
+          <div class="profile-form-group">
+            <label for="editProfileName">👤 Full Name</label>
+            <input type="text" id="editProfileName" required>
+          </div>
+          <div class="profile-form-group">
+            <label for="editProfileEmail">📧 Email Address</label>
+            <input type="email" id="editProfileEmail" required>
+          </div>
+          <div class="profile-form-group">
+            <label for="editProfilePhone">📱 Phone Number</label>
+            <input type="tel" id="editProfilePhone" required>
+          </div>
+        </form>
+      </div>
+      <div class="profile-edit-footer">
+        <button class="btn-save-profile" onclick="saveProfile()">💾 Save Changes</button>
+        <button class="btn-cancel-profile" onclick="closeProfileEdit()">❌ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Profile Dropdown
+    function toggleProfileDropdown() {
+      const dropdown = document.getElementById("profileDropdown");
+      dropdown.classList.toggle("show");
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+      const profileSection = document.querySelector(".profile-dropdown");
+      const dropdown = document.getElementById("profileDropdown");
+      if (!profileSection.contains(event.target)) {
+        dropdown.classList.remove("show");
+      }
+    });
+
+    // Logout Function
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        // 🧹 Clear session/localStorage
+        localStorage.removeItem("loggedUser");
+        localStorage.removeItem("myApplications"); // optional, if you want to clear apps too
+        alert("✅ Logged out successfully!");
+        // 🔁 Redirect to homepage/index
+        window.location.href = '../index.html';
+      }
+    }
+
+    // NAVBAR JAVASCRIPT
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+    
+    function toggleProfileDropdown() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.classList.toggle('show');
+    }
+    
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        // Simulate logout - redirect to index.html
+        window.location.href = 'index.html.html';
+      }
+    }
+    
+    // Profile management functions
+    function editProfile() {
+      // Get current profile values
+      const currentName = document.getElementById('profileName').textContent;
+      const currentEmail = document.getElementById('profileEmail').textContent;
+      const currentPhone = document.getElementById('profilePhone').textContent;
+      // Populate the edit form
+      document.getElementById('editProfileName').value = currentName;
+      document.getElementById('editProfileEmail').value = currentEmail;
+      document.getElementById('editProfilePhone').value = currentPhone;
+      // Show the modal
+      document.getElementById('profileEditModal').style.display = 'flex';
+      // Close the profile dropdown
+      document.getElementById('profileDropdown').classList.remove('show');
+    }
+    
+    function saveProfile() {
+      // Get new values
+      const newName = document.getElementById('editProfileName').value.trim();
+      const newEmail = document.getElementById('editProfileEmail').value.trim();
+      const newPhone = document.getElementById('editProfilePhone').value.trim();
+      // Validate inputs
+      if (!newName || !newEmail || !newPhone) {
+        alert('Please fill in all fields');
+        return;
+      }
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(newEmail)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      // Phone validation (basic)
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      if (!phoneRegex.test(newPhone.replace(/[\s\-\(\)]/g, ''))) {
+        alert('Please enter a valid phone number');
+        return;
+      }
+      // Update profile display
+      document.getElementById('profileName').textContent = newName;
+      document.getElementById('profileEmail').textContent = newEmail;
+      document.getElementById('profilePhone').textContent = newPhone;
+      // Close modal
+      closeProfileEdit();
+      // Show success message
+      alert('Profile updated successfully! 🎉');
+    }
+    
+    function closeProfileEdit() {
+      document.getElementById('profileEditModal').style.display = 'none';
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function (e) {
+      const modal = document.getElementById('profileEditModal');
+      if (e.target === modal) {
+        closeProfileEdit();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

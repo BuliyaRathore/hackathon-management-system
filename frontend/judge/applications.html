@@ -1,0 +1,76 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Judge Dashboard - My Applications</title>
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+
+      <!-- NAVBAR HTML -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="organizer.html" class="logo">HackEase</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠Home</a></li>
+                <li><a href="applications.html">📝My Applications</a></li>
+                <li> <a href="evaluate-projects.html">📊Evaluate Projects</a></li>
+                <li><a href="results.html">🏆Results</a></li>
+                <li class="profile-dropdown">
+                    <a href="#" class="profile-btn" onclick="toggleProfileDropdown()">👤 </a>
+                    <div class="dropdown-content" id="profileDropdown">
+                        <div class="profile-header">
+                            <h3 id="profileName">Rajesh Kumar</h3>
+                            <p>Organizer</p>
+                        </div>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-icon">📧</span>
+                                <span id="profileEmail">rajesh.kumar@hackease.com</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">📱</span>
+                                <span id="profilePhone">+91 98765 43210</span>
+                            </div>
+                        </div>
+                        <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profile</button>
+                        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="mobile-nav">
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">☰</button>
+                <div class="mobile-nav-menu" id="mobileMenu">
+                    <a href="index.html">Home</a>
+                    <a href="applications.html">My Applications</a>
+                     <a href="evaluate-projects.html">Evaluate Projects</a>
+                   <a href="results.html">Results</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">My Judge Applications</h1>
+
+        <div class="applications-grid" id="applicationsGrid">
+            <!-- Applications will be populated here -->
+        </div>
+
+        <div class="no-applications" id="noApplications" style="display: none;">
+            <p>You haven't applied for any hackathons as a judge yet.</p>
+        </div>
+    </div>
+
+    <!-- Modal for application details -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+</body>
+</html>

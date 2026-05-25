@@ -1,0 +1,494 @@
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        background: linear-gradient(135deg, #fef2f5 0%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+
+      .hackathon-details-page {
+        background: transparent;
+        padding: 40px;
+        min-height: 100vh;
+      }
+
+      .top-header {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        border: 1px solid rgba(225, 29, 72, 0.1);
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .hack-logo {
+        width: 70px;
+        height: 70px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .hackathon-title {
+        color: #1f2937;
+        margin-bottom: 5px;
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .top-header p {
+        color: #6b7280;
+        margin-bottom: 4px;
+      }
+
+      .prize-tag {
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 25px;
+        display: inline-block;
+        margin-top: 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+      }
+
+      /* Fixed Tab Menu */
+      .tab-menu {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #e11d48 #f1f5f9;
+        border: 1px solid rgba(225, 29, 72, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .tab-menu::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .tab-menu::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+
+      .tab-menu::-webkit-scrollbar-thumb {
+        background: #e11d48;
+        border-radius: 10px;
+      }
+
+      .tab-menu li {
+        list-style: none;
+        padding: 12px 24px;
+        border: 2px solid #e11d48;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        color: #e11d48;
+      }
+
+      .tab-menu li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+
+      .tab-menu li:hover::before {
+        left: 0;
+      }
+
+      .tab-menu li:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
+      }
+
+      .tab-menu li.active {
+        background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
+      }
+
+      .page-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .main-content {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: 20px;
+      }
+
+      .left-content {
+        flex: 2;
+        padding-right: 1rem;
+      }
+
+      .right-info {
+        flex: 1;
+        position: sticky;
+        top: 30px;
+        height: fit-content;
+        max-width: 350px;
+      }
+
+      .section-card {
+        background: white;
+        padding: 30px;
+        margin-bottom: 30px;
+        border-left: 6px solid #e11d48;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(225, 29, 72, 0.1);
+      }
+
+      .section-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .section-card h2 {
+        color: #1f2937;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .inner-card {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .inner-card ul {
+        padding-left: 20px;
+      }
+
+      .inner-card li {
+        margin-bottom: 8px;
+        color: #4b5563;
+      }
+
+      .stage-card {
+        background: #f8fafc;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+      }
+
+      .stage-card:hover {
+        background: #f1f5f9;
+        transform: translateX(5px);
+      }
+
+      .stage-card h3 {
+        color: #e11d48;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      .stage-card p {
+        color: #4b5563;
+        margin-bottom: 8px;
+      }
+
+      .right-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        border: 1px solid rgba(225, 29, 72, 0.1);
+      }
+
+      .price-label {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        color: #10b981;
+      }
+
+      .organizer-name {
+        font-weight: 700;
+        color: #1f2937;
+        font-size: 1.1rem;
+      }
+
+      .organizer-email {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 20px;
+      }
+
+      .register-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: white;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        margin: 15px 0 25px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .register-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+
+      .register-btn:hover::before {
+        left: 0;
+      }
+
+      .register-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+      }
+
+      .stats-row {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .stat-box {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+      }
+
+      .stat-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+
+      .stat-title {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 5px;
+      }
+
+      .stat-value {
+        font-weight: 700;
+        color: #1f2937;
+        font-size: 1.1rem;
+      }
+
+      /* Progress indicator */
+      .progress-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, #e11d48, #f43f5e);
+        z-index: 1000;
+        transition: width 0.3s ease;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .hackathon-details-page {
+          padding: 20px;
+        }
+
+        .main-content {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .left-content {
+          padding-right: 0;
+          box-sizing: border-box;
+        }
+
+        .right-info {
+          position: static;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .tab-menu {
+          padding: 15px;
+          gap: 10px;
+        }
+
+        .tab-menu li {
+          padding: 10px 18px;
+          font-size: 0.9rem;
+        }
+
+        .hackathon-title {
+          font-size: 2rem;
+        }
+
+        .section-card {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .left {
+          flex-direction: column;
+          text-align: center;
+          gap: 15px;
+        }
+
+        .hackathon-title {
+          font-size: 1.8rem;
+        }
+
+        .tab-menu {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .tab-menu li {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      /* Loading animation */
+      .loading-skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+
+        100% {
+          background-position: -200% 0;
+        }
+      }
+      /* Ensures full-page scroll is vertical */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* ⛔ Prevent horizontal scroll */
+}
+
+.page-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row; /* 👈 This is correct */
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Left side for hackathon details */
+.left-content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0; /* ✅ Prevent overflow */
+}
+
+/* Right side for register panel */
+.right-info {
+  flex: 1;
+  position: sticky;
+  top: 100px;
+  min-width: 300px;
+}
+
+/* General content card styling */
+.section-card, .right-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
